@@ -70,12 +70,6 @@ header{position:sticky;top:0;z-index:20;background:var(--deep);padding-top:var(-
 .clock i{display:block;font-style:normal;font-size:12px;letter-spacing:.2em;opacity:.78;margin-bottom:2px}
 .clock strong{display:block;font-size:36px;font-weight:700;line-height:1;letter-spacing:-.02em}
 .clock.dep{border-left-color:var(--salmon)}
-.spend{margin-top:12px;background:rgba(246,241,226,.1);border-radius:3px;padding:9px 13px;
-  border-left:3px solid var(--rose)}
-.spend i{font-style:normal;font-size:12px;letter-spacing:.16em;opacity:.78}
-.spend b{font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;margin-left:8px}
-.spend s{text-decoration:none;font-size:13px;opacity:.75;margin-left:6px}
-
 /* ---------- 死線 ---------- */
 .dl{margin:14px 12px 0;background:var(--rose-deep);color:#fff;border-radius:3px;overflow:hidden}
 .dl p{margin:0;padding:11px 14px;font-size:14.5px;font-weight:600;line-height:1.45}
@@ -263,7 +257,6 @@ footer{padding:22px 18px 6px;font-size:12.5px;color:var(--ink-soft);line-height:
     <div class="clock"><i>起床</i><strong class="num" id="wake"></strong></div>
     <div class="clock dep"><i>出發</i><strong class="num" id="dep"></strong></div>
   </div>
-  <div id="spend"></div>
 </div>
 
 <div id="deadline"></div>
@@ -452,7 +445,7 @@ var TT={
 /* ---------- trip data ---------- */
 var DAYS=[
 {
- date:"9/20",spend:["¥5,300","NT$1,092"],dow:"日",n:"①",title:"抵達日：桃園 → 廣島機場 → 尾道",
+ date:"9/20",dow:"日",n:"①",title:"抵達日：桃園 → 廣島機場 → 尾道",
  wake:"04:00",dep:"04:40",
  deadline:["11:45 機場巴士是唯一能搭的班次","下一班要等到 15:10。入境後直接走，不要逛免稅店。"],
  route:{mode:"driving",label:"機場 → 三原 → 尾道",stops:[
@@ -480,7 +473,7 @@ var DAYS=[
  ]
 },
 {
- date:"9/21",spend:["¥9,950","NT$2,050"],dow:"一",n:"②",title:"尾道七佛朱印巡禮",
+ date:"9/21",dow:"一",n:"②",title:"尾道七佛朱印巡禮",
  wake:"07:30",dep:"08:35",
  deadline:["淨土寺 16:00 就關門，是七間裡最早的","它排在倒數第二站，下午別逛太慢。"],
  route:{mode:"walking",label:"由西往東，繞一圈回民宿",stops:[
@@ -514,7 +507,7 @@ var DAYS=[
  ]
 },
 {
- date:"9/22",spend:["¥11,570","NT$2,383"],dow:"二",n:"③",title:"島波海道騎行：向島 → 因島 → 生口島",
+ date:"9/22",dow:"二",n:"③",title:"島波海道騎行：向島 → 因島 → 生口島",
  wake:"07:00",dep:"08:00",
  deadline:["17:00 瀨戶田開船 · 17:45 到尾道駅前","船票要提前 30 分買。中午一到生口島就先去港口買好，再去吃飯。"],
  route:{mode:"driving",label:"約 32 km，一路往西南",
@@ -549,7 +542,7 @@ var DAYS=[
  ]
 },
 {
- date:"9/23",spend:["¥6,320","NT$1,302"],dow:"三",n:"④",title:"尾道 → 廣島市",
+ date:"9/23",dow:"三",n:"④",title:"尾道 → 廣島市",
  wake:"07:30",dep:"08:30",
  deadline:["一到廣島站先去 JINS 下單，別排到最後","鏡片要等約 90 分。度數特殊可能要隔天，當場就要問清楚。"],
  route:{mode:"driving",label:"尾道 → 廣島站 → JINS → 飯店 → 本通",stops:[
@@ -580,7 +573,7 @@ var DAYS=[
  ]
 },
 {
- date:"9/24",spend:["¥10,290","NT$2,120"],dow:"四",n:"⑤",title:"宮島：世界遺產航線一日",
+ date:"9/24",dow:"四",n:"⑤",title:"宮島：世界遺產航線一日",
  wake:"06:30",dep:"07:45",
  deadline:["08:30 首班船 · 08:00 到碼頭取票","纜車 16:00 收班，下山常排 30 分以上，14:30 就開始往下走。"],
  route:{mode:"walking",label:"島上步行段",
@@ -621,7 +614,7 @@ var DAYS=[
  ]
 },
 {
- date:"9/25",spend:["¥9,030","NT$1,860"],dow:"五",n:"⑥",title:"廣島市區：和平公園與最後採買",
+ date:"9/25",dow:"五",n:"⑥",title:"廣島市區：和平公園與最後採買",
  wake:"06:40",dep:"07:40",
  deadline:["資料館 7:30–8:30 只收網路預約","出門前先確認訂票 QR 碼調得出來。"],
  route:{mode:"walking",label:"和平公園一圈，再往北到廣島城",stops:[
@@ -651,7 +644,7 @@ var DAYS=[
  ]
 },
 {
- date:"9/26",spend:["¥2,500","NT$515"],dow:"六",n:"⑦",title:"返程：廣島 → 桃園",
+ date:"9/26",dow:"六",n:"⑦",title:"返程：廣島 → 桃園",
  wake:"06:40",dep:"07:40",
  deadline:["08:20 巴士 → 09:15 到機場","巴士中心在 SOGO 3 樓，入口在東側外面的手扶梯，不是走商場裡面。"],
  route:{mode:"driving",label:"飯店 → 巴士中心 → 機場",stops:[
@@ -911,8 +904,6 @@ function render(i){
   document.getElementById("dayTitle").textContent=d.date+"（"+d.dow+"）"+d.title;
   document.getElementById("wake").textContent=d.wake;
   document.getElementById("dep").textContent=d.dep;
-  document.getElementById("spend").innerHTML=d.spend
-    ? '<div class="spend"><i>今日現地約</i><b>'+d.spend[0]+'</b><s>'+d.spend[1]+'</s></div>' : '';
   dlEl.innerHTML=d.deadline?'<div class="dl"><p>'+esc(d.deadline[0])+'</p><p>'+esc(d.deadline[1])+'</p></div>':'';
   rmEl.innerHTML=routeHTML(d.route);
 
